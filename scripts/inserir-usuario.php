@@ -6,9 +6,20 @@ use App\Database\Query;
 
 $query = new Query();
 
-$nome = 'Fulano da Silva';
+$nome = 'admin';
 $email = 'admin@admin.com';
-$senha = 'minha_senha';
+$senha = '0000';
+
+$emailBanco = $query->select(
+    tabela: 'usuario',
+    condicao: "email=".$email,
+    colunas: 'email'
+);
+
+if($emailBanco != null){
+    echo "Email já cadastrado!";
+    die;
+}
 
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
